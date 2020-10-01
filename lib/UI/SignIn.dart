@@ -32,10 +32,6 @@ class _SignInState extends State<SignIn> {
   sigIn() async {
     if (formKey.currentState.validate()) {
       try {
-        PostLogin newPost = new PostLogin(
-            grant_type: "password",
-            username: userNameTextEditingController.text,
-            password: passwordTextEditingController.text);
         final dataRepository =
             Provider.of<DataRepository>(context, listen: false);
 
@@ -43,7 +39,10 @@ class _SignInState extends State<SignIn> {
           isLoading = true;
         });
 
-        bool stateLogin = await dataRepository.createPostLogin(newPost.toMap());
+        bool stateLogin = await dataRepository.createPostLogin(
+          userNameTextEditingController.text,
+          passwordTextEditingController.text,
+        );
 
         isLoading = false;
         if (stateLogin) {

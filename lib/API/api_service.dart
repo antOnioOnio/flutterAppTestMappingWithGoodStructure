@@ -27,11 +27,15 @@ class APIService {
     throw response;
   }
 
-  Future<Bartender> postBartender(Map map) async {
+  Future<Bartender> postBartender(Map map, String token) async {
     print('alo?');
 
     final response = await http.post(
       api.endpointUri(Endpoint.bartender).toString(),
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "bearer " + token,
+      },
       body: map,
     );
 

@@ -44,6 +44,8 @@ class _ExampleScreenState extends State<ExampleScreen> {
       positions: list,
     );
 
+    print(bartender.toJson());
+
     return bartender.toJson();
   }
 
