@@ -28,19 +28,22 @@ class APIService {
   }
 
   Future<Bartender> postBartender(Map map, String token) async {
-    print('alo?');
+    print("body" + map.toString());
+
+    Map<String, String> headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'bearer ' + token
+    };
 
     final response = await http.post(
       api.endpointUri(Endpoint.bartender).toString(),
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": "bearer " + token,
-      },
+      headers: headers,
       body: map,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       final data = json.decode(response.body);
+
       if (data != null) {
         return Bartender.fromJson(data);
       }

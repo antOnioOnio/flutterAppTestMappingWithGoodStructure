@@ -13,19 +13,16 @@ class DataRepository {
   ///
   Future<bool> createPostLogin(String user, String password) async {
     PostLogin newPost = new PostLogin(
-        grant_type: "password",
-        username: user,
-        password: password);
+        grant_type: "password", username: user, password: password);
 
     PostLogin postLogin = await apiService.getAccessToken(newPost.toMap());
 
     if (postLogin.access_token != null) {
-
       bool state = await dataCacheService
           .saveUserNameSharedPreferences(postLogin.username);
 
-      state = await dataCacheService.saveUserTokenSharedPreferences(postLogin.access_token);
-
+      state = await dataCacheService
+          .saveUserTokenSharedPreferences(postLogin.access_token);
 
       return state;
     }
@@ -34,11 +31,15 @@ class DataRepository {
   }
 
   ///
-  Future<bool> postBartenders(Map map) async{
-
+  Future<bool> postBartenders(Map map) async {
     String token = await dataCacheService.getUserTokenSharedPreferences();
 
     Bartender bartender = await apiService.postBartender(map, token);
-    return bartender != null ? true: false;
+
+    if (bartender != null) {
+      print("Bartender -->" + bartender.id);
+    }
+
+    return bartender != null ? true : false;
   }
 }

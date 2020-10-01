@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,13 +27,14 @@ class _ExampleScreenState extends State<ExampleScreen> {
         note2: "sample string 6",
         note3: "sample string 7");
     BartenderPosition bartenderPosition1 = new BartenderPosition(
-        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
+        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae432",
         item: "sample string 2",
         charge: "sample string 3",
         count: 4,
         note1: "sample string 5",
         note2: "sample string 6",
         note3: "sample string 7");
+
     List<BartenderPosition> list = [bartenderPosition, bartenderPosition1];
 
     Bartender bartender = new Bartender(
@@ -44,7 +46,6 @@ class _ExampleScreenState extends State<ExampleScreen> {
       positions: list,
     );
 
-    print(bartender.toJson());
 
     return bartender.toJson();
   }
@@ -55,6 +56,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
           Provider.of<DataRepository>(context, listen: false);
 
       bool state = await dataRepository.postBartenders(createFakeBartenderes());
+
     } on SocketException catch (_) {
       showAlertDialog(
           context: context,
@@ -64,7 +66,8 @@ class _ExampleScreenState extends State<ExampleScreen> {
       setState(() {
         isLoading = false;
       });
-    } catch (_) {
+    }
+    catch (_) {
       showAlertDialog(
           context: context,
           title: 'Uknown error',

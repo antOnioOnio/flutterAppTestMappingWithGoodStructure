@@ -27,5 +27,5 @@ Map<String, dynamic> _$BartenderToJson(Bartender instance) => <String, dynamic>{
       'notes': instance.notes,
       'printDefinition': instance.printDefinition,
       'printer': instance.printer,
-      'positions': instance.positions,
+      'positions': jsonEncode(instance.positions),
     };
