@@ -1,16 +1,14 @@
-# test_mapping
+# Flutter template
 
-A new Flutter application.
+This is a template app with an elaborated arquitecture that allow the app to grow with a clear separated layers
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+The app is basically designed to make two interactions with the API https://dev.s1m.ch/frontworkAPI/
+The first one will give us the token during the login page and the second one is to post some fake hardcoded bartenderers in the second page.
 
-A few resources to get you started if this is your first Flutter project:
+## Arquitecture
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+I´ve tried to separate the different layers so in the future it will be as easier as possible to manage big apps.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Arquitectura](/imgs/arquitecture.png)
