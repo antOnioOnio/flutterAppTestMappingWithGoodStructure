@@ -13,11 +13,7 @@ ModelBartender _$ModelBartenderFromJson(Map<String, dynamic> json) {
     notes: json['notes'] as String,
     printDefinition: json['printDefinition'] as String,
     printer: json['printer'] as String,
-    positions: (json['positions'] as List)
-        ?.map((e) => e == null
-            ? null
-            : ModelBartenderPosition.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    positions: json['positions'] as String,
   );
 }
 

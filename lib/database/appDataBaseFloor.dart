@@ -9,8 +9,8 @@ import 'models/ModelBartenderPosition.dart';
 
 part 'appDataBaseFloor.g.dart';
 
-@Database(version: 1, entities: [ModelBartender, ModelBartenderPosition])
+@Database(version: 1, entities: [ModelBartender/*, ModelBartenderPosition*/])
 abstract class AppDataBase extends FloorDatabase {
   ModelBartenderDao get modelBartenderDao;
-  ModelBartenderPositionDao get model;
+ /* ModelBartenderPositionDao get model;*/
 }

@@ -9,18 +9,23 @@ import 'API/api_service.dart';
 import 'API/datacacheService.dart';
 import 'UI/SignIn.dart';
 import 'repositories/main_repository.dart';
+import 'database/appDataBaseFloor.dart';
 
 void main() async {
+  final database =
+      await $FloorAppDataBase.databaseBuilder('flutter_database.db').build();
+/*  final dao = database.modelBartenderDao;*/
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   final sharedPreferences = await SharedPreferences.getInstance();
-  runApp(MyApp(sharedPreferences: sharedPreferences,));
+  runApp(MyApp(
+    sharedPreferences: sharedPreferences,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key, @required this.sharedPreferences}) : super(key: key);
   final SharedPreferences sharedPreferences;
-
 
   // This widget is the root of your application.
   @override

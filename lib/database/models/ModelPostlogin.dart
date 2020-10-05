@@ -25,11 +25,4 @@ class ModelPostLogin {
 
   Map<String, dynamic> toMap() => _$ModelPostLoginToJson(this);
 
-/*  Map toMap() {
-    var map = new Map<String, dynamic>();
-    map["grant_type"] = grant_type;
-    map["username"] = username;
-    map["password"] = password;
-    return map;
-  }*/
 }

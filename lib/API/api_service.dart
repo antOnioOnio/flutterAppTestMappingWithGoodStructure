@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart ' as http;
 import 'package:test_mapping/database/models/ModelBartender.dart';
-import 'file:///C:/Projects/otros/FlutterProjects/test_mapping/lib/database/manager/ModelPostlogin.dart';
+import 'package:test_mapping/database/models/ModelPostlogin.dart';
 import 'api_frontwork.dart';
 
 class APIService {
@@ -11,6 +11,7 @@ class APIService {
   final APIfrontWork api;
 
   Future<ModelPostLogin> getAccessToken(Map map) async {
+    print("MAP==> " + map.toString());
     final response = await http.post(
       api.tokenUri().toString(),
       body: map,

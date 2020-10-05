@@ -43,7 +43,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
       notes: "sample string 3",
       printDefinition: "sample string 4",
       printer: "sample string 5",
-      positions: list,
+      positions: "",
     );
 
 

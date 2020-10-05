@@ -39,7 +39,7 @@ class _SignInState extends State<SignIn> {
         });
 
         bool stateLogin = await dataRepository.createPostLogin(
-          userNameTextEditingController.text,
+          userNameTextEditingController.text.trim(),
           passwordTextEditingController.text,
         );
 

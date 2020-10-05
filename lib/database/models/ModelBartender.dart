@@ -9,10 +9,6 @@ part 'ModelBartender.g.dart';
 @JsonSerializable()
 @entity
 class ModelBartender {
-/*
-  @ignore
-  static final String TABLE_NAME = "bartenders";
-*/
 
   @primaryKey
   final String id;
@@ -20,7 +16,7 @@ class ModelBartender {
   final String notes;
   final String printDefinition;
   final String printer;
-  final List<ModelBartenderPosition> positions;
+  final String positions;
 
   ModelBartender(
       {this.id,
