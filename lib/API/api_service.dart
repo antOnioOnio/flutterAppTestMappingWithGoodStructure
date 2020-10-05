@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 import 'package:http/http.dart ' as http;
-import 'package:test_mapping/models/bartender.dart';
+import 'package:test_mapping/database/models/ModelBartender.dart';
+import 'file:///C:/Projects/otros/FlutterProjects/test_mapping/lib/database/manager/ModelPostlogin.dart';
 import 'api_frontwork.dart';
-import '../models/postlogin.dart';
 
 class APIService {
   APIService(this.api);
 
   final APIfrontWork api;
 
-  Future<PostLogin> getAccessToken(Map map) async {
+  Future<ModelPostLogin> getAccessToken(Map map) async {
     final response = await http.post(
       api.tokenUri().toString(),
       body: map,
@@ -19,7 +19,7 @@ class APIService {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       if (data != null) {
-        return PostLogin.fromJson(data);
+        return ModelPostLogin.fromJson(data);
       }
     }
     print(
@@ -27,7 +27,7 @@ class APIService {
     throw response;
   }
 
-  Future<Bartender> postBartender(Map map, String token) async {
+  Future<ModelBartender> postBartender(Map map, String token) async {
     print("body" + map.toString());
 
     Map<String, String> headers = {
@@ -45,7 +45,7 @@ class APIService {
       final data = json.decode(response.body);
 
       if (data != null) {
-        return Bartender.fromJson(data);
+        return ModelBartender.fromJson(data);
       }
     }
 

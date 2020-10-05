@@ -1,9 +1,12 @@
+import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'bartender_position.g.dart';
+part 'ModelBartenderPosition.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class BartenderPosition {
+@entity
+class ModelBartenderPosition {
+  @primaryKey
   final String id;
   final String item;
   final String charge;
@@ -12,7 +15,7 @@ class BartenderPosition {
   final String note2;
   final String note3;
 
-  BartenderPosition(
+  ModelBartenderPosition(
     { this.id,
       this.item,
       this.charge,
@@ -21,8 +24,8 @@ class BartenderPosition {
       this.note2,
       this.note3});
 
-  factory BartenderPosition.fromJson(Map<String, dynamic> data) =>
-      _$BartenderPositionFromJson(data);
+  factory ModelBartenderPosition.fromJson(Map<String, dynamic> data) =>
+      _$ModelBartenderPositionFromJson(data);
 
-  Map<String, dynamic> toJson() => _$BartenderPositionToJson(this);
+  Map<String, dynamic> toJson() => _$ModelBartenderPositionToJson(this);
 }

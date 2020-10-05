@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:test_mapping/API/api_service.dart';
 import 'package:test_mapping/API/datacacheService.dart';
-import 'package:test_mapping/models/bartender.dart';
-import 'package:test_mapping/models/postlogin.dart';
+import 'package:test_mapping/database/models/ModelBartender.dart';
+import 'package:test_mapping/database/models/ModelPostlogin.dart';
 
 class DataRepository {
   DataRepository({@required this.dataCacheService, @required this.apiService});
@@ -12,10 +12,10 @@ class DataRepository {
 
   ///
   Future<bool> createPostLogin(String user, String password) async {
-    PostLogin newPost = new PostLogin(
+    ModelPostLogin newPost = new ModelPostLogin(
         grant_type: "password", username: user, password: password);
 
-    PostLogin postLogin = await apiService.getAccessToken(newPost.toMap());
+    ModelPostLogin postLogin = await apiService.getAccessToken(newPost.toMap());
 
     if (postLogin.access_token != null) {
       bool state = await dataCacheService
@@ -34,7 +34,7 @@ class DataRepository {
   Future<bool> postBartenders(Map map) async {
     String token = await dataCacheService.getUserTokenSharedPreferences();
 
-    Bartender bartender = await apiService.postBartender(map, token);
+    ModelBartender bartender = await apiService.postBartender(map, token);
 
     if (bartender != null) {
       print("Bartender -->" + bartender.id);

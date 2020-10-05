@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bartender_position.dart';
+part of 'ModelBartenderPosition.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BartenderPosition _$BartenderPositionFromJson(Map<String, dynamic> json) {
-  return BartenderPosition(
+ModelBartenderPosition _$ModelBartenderPositionFromJson(
+    Map<String, dynamic> json) {
+  return ModelBartenderPosition(
     id: json['id'] as String,
     item: json['item'] as String,
     charge: json['charge'] as String,
@@ -18,7 +19,8 @@ BartenderPosition _$BartenderPositionFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$BartenderPositionToJson(BartenderPosition instance) =>
+Map<String, dynamic> _$ModelBartenderPositionToJson(
+        ModelBartenderPosition instance) =>
     <String, dynamic>{
       'id': instance.id,
       'item': instance.item,

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:test_mapping/UI/show_alert_dialog.dart';
-import 'package:test_mapping/models/postlogin.dart';
 import 'package:test_mapping/repositories/main_repository.dart';
 import 'package:test_mapping/widget/widget.dart';
 import 'package:provider/provider.dart';
@@ -108,6 +107,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       TextField(
+                        obscureText: true,
                         controller: passwordTextEditingController,
                         style: simpleTextStyle(),
                         decoration: textFieldInputDecoration('password'),

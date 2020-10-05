@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'postlogin.dart';
+part of 'ModelPostlogin.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PostLogin _$PostLoginFromJson(Map<String, dynamic> json) {
-  return PostLogin(
+ModelPostLogin _$ModelPostLoginFromJson(Map<String, dynamic> json) {
+  return ModelPostLogin(
     grant_type: json['grant_type'] as String,
     username: json['username'] as String,
     password: json['password'] as String,
@@ -16,10 +16,11 @@ PostLogin _$PostLoginFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$PostLoginToJson(PostLogin instance) => <String, dynamic>{
+Map<String, dynamic> _$ModelPostLoginToJson(ModelPostLogin instance) =>
+    <String, dynamic>{
       'grant_type': instance.grant_type,
       'username': instance.username,
       'password': instance.password,
-/*      'access_token': instance.access_token,
-      'expires': instance.expires,*/
+      'access_token': instance.access_token,
+      'expires': instance.expires,
     };

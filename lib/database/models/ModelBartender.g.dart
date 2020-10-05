@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bartender.dart';
+part of 'ModelBartender.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Bartender _$BartenderFromJson(Map<String, dynamic> json) {
-  return Bartender(
+ModelBartender _$ModelBartenderFromJson(Map<String, dynamic> json) {
+  return ModelBartender(
     id: json['id'] as String,
     bartenderNr: json['bartenderNr'] as String,
     notes: json['notes'] as String,
@@ -16,16 +16,17 @@ Bartender _$BartenderFromJson(Map<String, dynamic> json) {
     positions: (json['positions'] as List)
         ?.map((e) => e == null
             ? null
-            : BartenderPosition.fromJson(e as Map<String, dynamic>))
+            : ModelBartenderPosition.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$BartenderToJson(Bartender instance) => <String, dynamic>{
+Map<String, dynamic> _$ModelBartenderToJson(ModelBartender instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'bartenderNr': instance.bartenderNr,
       'notes': instance.notes,
       'printDefinition': instance.printDefinition,
       'printer': instance.printer,
-      'positions': jsonEncode(instance.positions),
+      'positions': instance.positions,
     };

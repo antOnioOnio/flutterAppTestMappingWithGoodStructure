@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:test_mapping/UI/show_alert_dialog.dart';
-import 'package:test_mapping/models/bartender.dart';
-import 'package:test_mapping/models/bartender_position.dart';
+import 'package:test_mapping/database/models/ModelBartender.dart';
+import 'package:test_mapping/database/models/ModelBartenderPosition.dart';
 import 'package:test_mapping/repositories/main_repository.dart';
 
 class ExampleScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
   bool isLoading = false;
 
   Map createFakeBartenderes() {
-    BartenderPosition bartenderPosition = new BartenderPosition(
+    ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
         id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
         item: "sample string 2",
         charge: "sample string 3",
@@ -26,7 +26,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
         note1: "sample string 5",
         note2: "sample string 6",
         note3: "sample string 7");
-    BartenderPosition bartenderPosition1 = new BartenderPosition(
+    ModelBartenderPosition bartenderPosition1 = new ModelBartenderPosition(
         id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae432",
         item: "sample string 2",
         charge: "sample string 3",
@@ -35,9 +35,9 @@ class _ExampleScreenState extends State<ExampleScreen> {
         note2: "sample string 6",
         note3: "sample string 7");
 
-    List<BartenderPosition> list = [bartenderPosition, bartenderPosition1];
+    List<ModelBartenderPosition> list = [bartenderPosition, bartenderPosition1];
 
-    Bartender bartender = new Bartender(
+    ModelBartender bartender = new ModelBartender(
       id: "94a15183-3a1b-4bb1-984e-eed8c1d71572",
       bartenderNr: "97bbd28a-5bb4-4356-b6de-6f756e17d2e4",
       notes: "sample string 3",

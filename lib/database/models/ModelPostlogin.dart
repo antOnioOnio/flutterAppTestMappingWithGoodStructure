@@ -1,26 +1,29 @@
+import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'postlogin.g.dart';
+part 'ModelPostlogin.g.dart';
 
 @JsonSerializable()
-class PostLogin {
+@entity
+class ModelPostLogin {
   final String grant_type;
   final String username;
   final String password;
+  @primaryKey
   final String access_token;
   final String expires;
 
-  PostLogin(
+  ModelPostLogin(
       {this.grant_type,
       this.username,
       this.password,
       this.access_token,
       this.expires});
 
-  factory PostLogin.fromJson(Map<String, dynamic> json) =>
-      _$PostLoginFromJson(json);
+  factory ModelPostLogin.fromJson(Map<String, dynamic> json) =>
+      _$ModelPostLoginFromJson(json);
 
-  Map<String, dynamic> toMap() => _$PostLoginToJson(this);
+  Map<String, dynamic> toMap() => _$ModelPostLoginToJson(this);
 
 /*  Map toMap() {
     var map = new Map<String, dynamic>();
