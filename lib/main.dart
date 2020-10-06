@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,20 +13,24 @@ import 'repositories/main_repository.dart';
 import 'database/appDataBaseFloor.dart';
 
 void main() async {
+  Stetho.initialize();
   final database =
       await $FloorAppDataBase.databaseBuilder('flutter_database.db').build();
 /*  final dao = database.modelBartenderDao;*/
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   final sharedPreferences = await SharedPreferences.getInstance();
+
   runApp(MyApp(
     sharedPreferences: sharedPreferences,
+    dataBase: database,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key, @required this.sharedPreferences}) : super(key: key);
+  const MyApp({Key key, @required this.sharedPreferences, this.dataBase}) : super(key: key);
   final SharedPreferences sharedPreferences;
+  final AppDataBase dataBase ;
 
   // This widget is the root of your application.
   @override
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
         dataCacheService: DataCacheService(
           sharedPreferences: sharedPreferences,
         ),
+        dataBase: dataBase
       ),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

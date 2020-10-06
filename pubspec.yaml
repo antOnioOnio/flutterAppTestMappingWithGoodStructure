@@ -29,6 +29,8 @@ dependencies:
   shared_preferences: ^0.5.10
   json_annotation: ^3.1.0
   floor: ^0.14.0
+  flutter_stetho: ^0.5.2
+
 
 
   # The following adds the Cupertino Icons font to your application.
