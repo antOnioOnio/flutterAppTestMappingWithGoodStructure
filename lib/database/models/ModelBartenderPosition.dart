@@ -1,3 +1,4 @@
+/*
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -29,3 +30,4 @@ class ModelBartenderPosition {
 
   Map<String, dynamic> toJson() => _$ModelBartenderPositionToJson(this);
 }
+*/

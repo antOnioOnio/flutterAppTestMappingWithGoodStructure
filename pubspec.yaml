@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^0.5.10
   json_annotation: ^3.1.0
   #floor: ^0.14.0
+  chopper: ^2.0.0
   moor_flutter: ^3.1.0
 
 
@@ -38,6 +39,7 @@ dependencies:
 
 dev_dependencies:
   #floor_generator: ^0.14.0
+  chopper_generator: ^2.0.0
   moor_generator: ^3.3.1
   flutter_test:
     sdk: flutter

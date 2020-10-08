@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_mapping/API/api_frontwork.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'API/api_service.dart';
+import 'API/api_frontwork_service.dart';
 import 'API/datacacheService.dart';
 import 'UI/SignIn.dart';
 import 'repositories/main_repository.dart';
-import 'database/appDataBaseFloor.dart';
 
 void main() async {
-  final database =
-      await $FloorAppDataBase.databaseBuilder('flutter_database.db').build();
-/*  final dao = database.modelBartenderDao;*/
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -32,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider<DataRepository>(
       create: (_) => DataRepository(
-        apiService: APIService(APIfrontWork()),
+        apiService: APIfrontWorkService.create() ,
         dataCacheService: DataCacheService(
           sharedPreferences: sharedPreferences,
         ),

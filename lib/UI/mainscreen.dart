@@ -17,6 +17,7 @@ class ExampleScreen extends StatefulWidget {
 class _ExampleScreenState extends State<ExampleScreen> {
   bool isLoading = false;
 
+/*
   Map createFakeBartenderes() {
     ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
         id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
@@ -47,9 +48,11 @@ class _ExampleScreenState extends State<ExampleScreen> {
     );
 
 
-    return bartender.toJson();
-  }
 
+    return bartender.toJson();
+  }*/
+
+/*
   getBartenders() async {
     try {
       final dataRepository =
@@ -78,6 +81,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
       });
     }
   }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +104,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
             child: GestureDetector(
               onTap: () {
                 print("cliqueado");
-                getBartenders();
+               /* getBartenders();*/
               },
               child: Text(
                 'GetBartender',

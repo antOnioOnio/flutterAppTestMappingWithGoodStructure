@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 
 import 'package:floor/floor.dart';
@@ -31,3 +32,4 @@ class ModelBartender {
 
   Map<String, dynamic> toJson() => _$ModelBartenderToJson(this);
 }
+*/

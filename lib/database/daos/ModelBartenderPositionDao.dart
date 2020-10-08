@@ -1,3 +1,4 @@
+/*
 import 'package:floor/floor.dart';
 import 'package:test_mapping/database/models/ModelBartenderPosition.dart';
 
@@ -11,4 +12,4 @@ abstract class ModelBartenderPositionDao{
   Future<void> insertPerson(ModelBartenderPosition modelBartenderPosition);
 
 
-}
+}*/

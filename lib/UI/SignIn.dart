@@ -30,29 +30,31 @@ class _SignInState extends State<SignIn> {
 
   sigIn() async {
     if (formKey.currentState.validate()) {
-      try {
-        final dataRepository =
-            Provider.of<DataRepository>(context, listen: false);
+      /* try {*/
+      final dataRepository =
+          Provider.of<DataRepository>(context, listen: false);
 
-        setState(() {
-          isLoading = true;
-        });
+      setState(() {
+        isLoading = true;
+      });
 
-        bool stateLogin = await dataRepository.createPostLogin(
-          userNameTextEditingController.text.trim(),
-          passwordTextEditingController.text,
+      bool stateLogin = await dataRepository.doPostLogin(
+        userNameTextEditingController.text.trim(),
+        passwordTextEditingController.text,
+      );
+
+
+
+      isLoading = false;
+      if (stateLogin) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ExampleScreen(),
+          ),
         );
-
-        isLoading = false;
-        if (stateLogin) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ExampleScreen(),
-            ),
-          );
-        }
-      } on SocketException catch (_) {
+      }
+      /*} on SocketException catch (_) {
         showAlertDialog(
             context: context,
             title: 'Connection Error',
@@ -70,7 +72,7 @@ class _SignInState extends State<SignIn> {
         setState(() {
           isLoading = false;
         });
-      }
+      }*/
     }
   }
 

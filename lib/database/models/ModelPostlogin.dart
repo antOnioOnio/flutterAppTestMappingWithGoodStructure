@@ -1,28 +1,15 @@
-import 'package:floor/floor.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:moor_flutter/moor_flutter.dart';
 
-part 'ModelPostlogin.g.dart';
+// Moor will automatically generate a class called ModelPostLogin, a row of this table.
+class ModelPostLogins extends Table{
 
-@JsonSerializable()
-@entity
-class ModelPostLogin {
-  final String grant_type;
-  final String username;
-  final String password;
-  @primaryKey
-  final String access_token;
-  final String expires;
+  TextColumn get grant_type => text()();
+  TextColumn get username => text()();
+  TextColumn get password => text()();
+  TextColumn get access_token => text()();
+  TextColumn get expires => text()();
 
-  ModelPostLogin(
-      {this.grant_type,
-      this.username,
-      this.password,
-      this.access_token,
-      this.expires});
-
-  factory ModelPostLogin.fromJson(Map<String, dynamic> json) =>
-      _$ModelPostLoginFromJson(json);
-
-  Map<String, dynamic> toMap() => _$ModelPostLoginToJson(this);
+  @override
+  Set<Column> get primaryKey => {access_token};
 
 }
