@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -10,11 +11,18 @@ import 'repositories/main_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  _setupLogging();
   await initializeDateFormatting();
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(MyApp(
     sharedPreferences: sharedPreferences,
   ));
+}
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }
 
 class MyApp extends StatelessWidget {

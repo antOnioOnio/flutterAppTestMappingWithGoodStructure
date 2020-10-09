@@ -29,7 +29,7 @@ class DataRepository {
     print("MAP LOGING---> " + modelPostLogin.toJson().toString());
 
     await _apiService.getToken(modelPostLogin.toJson()).then((value) {
-      print("BODY OF THE RESPONSE---> " + value.body);
+      print("BODY OF THE RESPONSE---> " + value.toString());
     });
 
 /*    if (response.statusCode >= 200 && response.statusCode < 400) {
