@@ -20,8 +20,8 @@ class DataRepository {
         _postLoginDao = postLoginDao;
 
   Future<bool> _saveUserDataToSP(String userName, String token) async {
-    bool state =
-        await _dataCacheService.saveUserNameSharedPreferences(userName);
+    bool state = false;
+    await _dataCacheService.saveUserNameSharedPreferences(userName);
     state = await _dataCacheService.saveUserTokenSharedPreferences(token);
     return state;
   }
@@ -35,11 +35,19 @@ class DataRepository {
     print("Body parameters to send---> " + bodyParameter);
 
     await _apiService.postToken(bodyParameter).then((response) async {
+      print("--->" + response.toString());
       // inserting into sharedPreferences
       await _saveUserDataToSP(user, response.access_token);
 
+      ModelPostLogin modelPostLogin = new ModelPostLogin(
+          grant_type: "password",
+          username: user,
+          password: password,
+          access_token: response.access_token,
+          expires: "null");
+
       // inserting it into db
-      await _postLoginDao.insertOrReplacePostLogin(response);
+      int value = await _postLoginDao.insertOrReplacePostLogin(modelPostLogin);
 
       boolvalue = true;
     }).catchError((Object obj) {
@@ -55,7 +63,6 @@ class DataRepository {
         default:
       }
     });
-
     return boolvalue;
 
 /*    if (response.statusCode >= 200 && response.statusCode < 400) {

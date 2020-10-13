@@ -16,8 +16,6 @@ class ModelPostLoginDao extends DatabaseAccessor<MyDatabase>
             ..where((ModelPostLogin) => ModelPostLogin.username.equals(login)))
           .get();
 
-  Future insertOrReplacePostLogin(ModelPostLogin modelPostLogin) {
-    print("------------------------------------------------------------");
-    into(modelPostLogins).insert(modelPostLogin, mode: InsertMode.replace);
-  }
+  Future<int> insertOrReplacePostLogin(ModelPostLogin modelPostLogin) =>
+      into(modelPostLogins).insert(modelPostLogin, mode: InsertMode.replace);
 }
