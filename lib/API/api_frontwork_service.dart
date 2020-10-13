@@ -1,28 +1,16 @@
-import 'package:chopper/chopper.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:retrofit/http.dart';
 import 'package:test_mapping/database/appDataBase.dart';
+part 'api_frontwork_service.g.dart';
 
-part 'api_frontwork_service.chopper.dart';
-
-@ChopperApi(baseUrl: "https://dev.s1m.ch")
-abstract class APIfrontWorkService extends ChopperService {
+@RestApi(baseUrl: "https://dev.s1m.ch")
+abstract class APIfrontWorkService {
   static const String basePath = '/frontworkAPI/api/v1';
 
-  static APIfrontWorkService create() {
-    final client = ChopperClient(
-        baseUrl: "https://dev.s1m.ch",
-        services: [
-          _$APIfrontWorkService(),
-        ],
-        interceptors: [HttpLoggingInterceptor()],
-        converter: JsonConverter());
-    return _$APIfrontWorkService(client);
-  }
+  factory APIfrontWorkService(Dio dio, {String baseUrl}) = _APIfrontWorkService;
 
-  @Post(
-    path: '$basePath/Account/Token',
-  )
-  Future<Response> getToken(
-    @Body() Map<String, dynamic> body,
-  );
+  @POST("$basePath/Account/Token")
+  Future<ModelPostLogin> postToken(@Body() String data);
+
 }

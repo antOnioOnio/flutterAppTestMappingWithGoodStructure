@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:test_mapping/database/appDataBase.dart';
+import 'package:test_mapping/database/daos/model_postlogin_dao.dart';
 
 import 'API/api_frontwork_service.dart';
 import 'API/datacacheService.dart';
@@ -18,6 +21,7 @@ void main() async {
     sharedPreferences: sharedPreferences,
   ));
 }
+
 void _setupLogging() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((rec) {
@@ -32,12 +36,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final dio = Dio();
     return Provider<DataRepository>(
       create: (_) => DataRepository(
-        apiService: APIfrontWorkService.create() ,
+        apiService: APIfrontWorkService(dio),
         dataCacheService: DataCacheService(
           sharedPreferences: sharedPreferences,
         ),
+        postLoginDao: MyDatabase().modelPostLoginDao,
       ),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,9 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:test_mapping/API/api_frontwork_service.dart';
 import 'package:test_mapping/API/datacacheService.dart';
 import 'package:test_mapping/database/appDataBase.dart';
 import 'package:test_mapping/database/daos/model_postlogin_dao.dart';
-import 'package:test_mapping/database/models/ModelPostlogin.dart';
+import 'package:logger/logger.dart';
 
 class DataRepository {
   final ModelPostLoginDao _postLoginDao;
@@ -18,19 +19,44 @@ class DataRepository {
         _dataCacheService = dataCacheService,
         _postLoginDao = postLoginDao;
 
+  Future<bool> _saveUserDataToSP(String userName, String token) async {
+    bool state =
+        await _dataCacheService.saveUserNameSharedPreferences(userName);
+    state = await _dataCacheService.saveUserTokenSharedPreferences(token);
+    return state;
+  }
+
   Future<bool> doPostLogin(String user, String password) async {
-    ModelPostLogin modelPostLogin = new ModelPostLogin(
-        grant_type: "password",
-        username: user,
-        password: password,
-        access_token: null,
-        expires: null);
+    var logger = Logger();
+    bool boolvalue = false;
+    String bodyParameter =
+        "grant_type=password&username=$user&password=$password";
 
-    print("MAP LOGING---> " + modelPostLogin.toJson().toString());
+    print("Body parameters to send---> " + bodyParameter);
 
-    await _apiService.getToken(modelPostLogin.toJson()).then((value) {
-      print("BODY OF THE RESPONSE---> " + value.toString());
+    await _apiService.postToken(bodyParameter).then((response) async {
+      // inserting into sharedPreferences
+      await _saveUserDataToSP(user, response.access_token);
+
+      // inserting it into db
+      await _postLoginDao.insertOrReplacePostLogin(response);
+
+      boolvalue = true;
+    }).catchError((Object obj) {
+      // non-200 error goes here.
+      switch (obj.runtimeType) {
+        case DioError:
+          print("pero guaaaaaaaaaat");
+          boolvalue = false;
+          // Here's the sample to get the failed response error code and message
+          final res = (obj as DioError).response;
+          logger.e("Got error : ${res.statusCode} -> ${res.statusMessage}");
+          break;
+        default:
+      }
     });
+
+    return boolvalue;
 
 /*    if (response.statusCode >= 200 && response.statusCode < 400) {
       print('Status code --->' + response.statusCode.toString());

@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:test_mapping/database/models/ModelPostlogin.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
@@ -20,8 +16,8 @@ class ModelPostLoginDao extends DatabaseAccessor<MyDatabase>
             ..where((ModelPostLogin) => ModelPostLogin.username.equals(login)))
           .get();
 
-  Future insertOrReplacePostLogin(ModelPostLogin modelPostLogin) =>
-      into(modelPostLogins).insert(modelPostLogin, mode: InsertMode.replace);
-
-
+  Future insertOrReplacePostLogin(ModelPostLogin modelPostLogin) {
+    print("------------------------------------------------------------");
+    into(modelPostLogins).insert(modelPostLogin, mode: InsertMode.replace);
+  }
 }

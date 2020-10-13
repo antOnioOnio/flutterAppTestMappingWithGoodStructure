@@ -42,9 +42,7 @@ class _SignInState extends State<SignIn> {
         userNameTextEditingController.text.trim(),
         passwordTextEditingController.text,
       );
-
-
-
+      print('------------>' + stateLogin.toString());
       isLoading = false;
       if (stateLogin) {
         Navigator.pushReplacement(
@@ -53,6 +51,10 @@ class _SignInState extends State<SignIn> {
             builder: (context) => ExampleScreen(),
           ),
         );
+      }else {
+        setState(() {
+          isLoading = false;
+        });
       }
       /*} on SocketException catch (_) {
         showAlertDialog(
