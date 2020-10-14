@@ -54,7 +54,6 @@ class DataRepository {
       // non-200 error goes here.
       switch (obj.runtimeType) {
         case DioError:
-          print("pero guaaaaaaaaaat");
           boolvalue = false;
           // Here's the sample to get the failed response error code and message
           final res = (obj as DioError).response;
@@ -64,40 +63,6 @@ class DataRepository {
       }
     });
     return boolvalue;
-
-/*    if (response.statusCode >= 200 && response.statusCode < 400) {
-      print('Status code --->' + response.statusCode.toString());
-
-*/ /*      bool state = await dataCacheService
-          .saveUserNameSharedPreferences(postLogin.username);
-
-      state = await dataCacheService
-          .saveUserTokenSharedPreferences(postLogin.access_token);*/ /*
-
-    } else {
-      print('keep going...');
-    }
-  }*/
-
-/*  ///
-  Future<bool> createPostLogin(String user, String password) async {
-    ModelPostLogin newPost = new ModelPostLogin(
-        grant_type: "password", username: user, password: password);
-
-    ModelPostLogin postLogin = await apiService.getAccessToken(newPost.toMap());
-
-    if (postLogin.access_token != null) {
-      bool state = await dataCacheService
-          .saveUserNameSharedPreferences(postLogin.username);
-
-      state = await dataCacheService
-          .saveUserTokenSharedPreferences(postLogin.access_token);
-
-      return state;
-    }
-
-    return false;
-  }*/
 
 /*  ///
   Future<bool> postBartenders(Map map) async {

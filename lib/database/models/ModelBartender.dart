@@ -1,35 +1,20 @@
-/*
 import 'dart:convert';
 
-import 'package:floor/floor.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:test_mapping/database/models/ModelBartenderPosition.dart';
+import 'package:moor_flutter/moor_flutter.dart';
 
-part 'ModelBartender.g.dart';
+import '../ConverterPosition.dart';
 
-@JsonSerializable()
-@entity
-class ModelBartender {
 
-  @primaryKey
-  final String id;
-  final String bartenderNr;
-  final String notes;
-  final String printDefinition;
-  final String printer;
-  final String positions;
+class ModelBartenders extends Table {
 
-  ModelBartender(
-      {this.id,
-      this.bartenderNr,
-      this.notes,
-      this.printDefinition,
-      this.printer,
-      this.positions});
+  TextColumn get  id=> text()();
+  TextColumn get  bartenderNr=> text()();
+  TextColumn get  notes=> text()();
+  TextColumn get  printDefinition=> text()();
+  TextColumn get  printer=> text()();
+  TextColumn get  positions=> text().map(const BartenderPositionConverter()).nullable()();
 
-  factory ModelBartender.fromJson(Map<String, dynamic> data) =>
-      _$ModelBartenderFromJson(data);
 
-  Map<String, dynamic> toJson() => _$ModelBartenderToJson(this);
+  @override
+  Set<Column> get primaryKey => {id};
 }
-*/

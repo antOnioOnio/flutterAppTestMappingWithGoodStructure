@@ -30,8 +30,31 @@ class _APIfrontWorkService implements APIfrontWorkService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
-    ModelPostLogin modelPostLogin = ModelPostLogin.fromJson(value);
+    ModelPostLogin modelPostLogin = ModelPostLogin.fromJson(_result.data);
+    return modelPostLogin;
+  }
+
+  @override
+  Future<ModelBartender> postBartender(data, contentType, auth) async {
+    ArgumentError.checkNotNull(data, 'data');
+    ArgumentError.checkNotNull(contentType, 'contentType');
+    ArgumentError.checkNotNull(auth, 'auth');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = data;
+    final _result = await _dio.request('/frontworkAPI/api/v1/Bartender',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': contentType,
+              r'Authorization': auth
+            },
+            extra: _extra,
+            contentType: contentType,
+            baseUrl: baseUrl),
+        data: _data);
+    ModelBartender modelPostLogin = ModelBartender.fromJson(_result.data);
     return modelPostLogin;
   }
 }

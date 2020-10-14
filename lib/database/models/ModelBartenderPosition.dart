@@ -1,23 +1,22 @@
-/*
-import 'package:floor/floor.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart' as j;
+import 'package:moor/moor.dart';
 
 part 'ModelBartenderPosition.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-@entity
+@j.JsonSerializable()
 class ModelBartenderPosition {
-  @primaryKey
-  final String id;
-  final String item;
-  final String charge;
-  final int count;
-  final String note1;
-  final String note2;
-  final String note3;
+  String id;
+  String item;
+  String charge;
+  int count;
+  String note1;
+  String note2;
+  String note3;
 
   ModelBartenderPosition(
-    { this.id,
+      {this.id,
       this.item,
       this.charge,
       this.count,
@@ -30,4 +29,3 @@ class ModelBartenderPosition {
 
   Map<String, dynamic> toJson() => _$ModelBartenderPositionToJson(this);
 }
-*/

@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:test_mapping/database/appDataBase.dart';
-import 'package:test_mapping/database/daos/model_postlogin_dao.dart';
 
 import 'API/api_frontwork_service.dart';
 import 'API/datacacheService.dart';
@@ -13,6 +13,7 @@ import 'UI/SignIn.dart';
 import 'repositories/main_repository.dart';
 
 void main() async {
+  /*Stetho.initialize();*/
   WidgetsFlutterBinding.ensureInitialized();
   _setupLogging();
   await initializeDateFormatting();
