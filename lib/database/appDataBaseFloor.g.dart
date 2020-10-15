@@ -64,6 +64,10 @@ class _$AppDataBase extends AppDataBase {
 
   ModelPostLoginDao _modelPostLoginDaoInstance;
 
+  BartenderEntryDao _bartenderEntryDaoInstance;
+
+  ModelBartenderPositionDao _modelBartenderPositionInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
@@ -82,9 +86,13 @@ class _$AppDataBase extends AppDataBase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ModelBartender` (`id` TEXT, `bartenderNr` TEXT, `notes` TEXT, `printDefinition` TEXT, `printer` TEXT, `positions` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `ModelBartender` (`id` TEXT, `bartenderNr` TEXT, `notes` TEXT, `printDefinition` TEXT, `printer` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ModelPostLogin` (`grant_type` TEXT, `username` TEXT, `password` TEXT, `access_token` TEXT, `expires` TEXT, PRIMARY KEY (`access_token`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `ModelBartenderPosition` (`id` TEXT, `item` TEXT, `charge` TEXT, `count` INTEGER, `note1` TEXT, `note2` TEXT, `note3` TEXT, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `BartenderEntry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `BartenderId` TEXT, `BartenderPosition` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -103,6 +111,18 @@ class _$AppDataBase extends AppDataBase {
     return _modelPostLoginDaoInstance ??=
         _$ModelPostLoginDao(database, changeListener);
   }
+
+  @override
+  BartenderEntryDao get bartenderEntryDao {
+    return _bartenderEntryDaoInstance ??=
+        _$BartenderEntryDao(database, changeListener);
+  }
+
+  @override
+  ModelBartenderPositionDao get modelBartenderPosition {
+    return _modelBartenderPositionInstance ??=
+        _$ModelBartenderPositionDao(database, changeListener);
+  }
 }
 
 class _$ModelBartenderDao extends ModelBartenderDao {
@@ -116,8 +136,7 @@ class _$ModelBartenderDao extends ModelBartenderDao {
                   'bartenderNr': item.bartenderNr,
                   'notes': item.notes,
                   'printDefinition': item.printDefinition,
-                  'printer': item.printer,
-                  'positions': item.positions
+                  'printer': item.printer
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -132,8 +151,7 @@ class _$ModelBartenderDao extends ModelBartenderDao {
           bartenderNr: row['bartenderNr'] as String,
           notes: row['notes'] as String,
           printDefinition: row['printDefinition'] as String,
-          printer: row['printer'] as String,
-          positions: row['positions'] as String);
+          printer: row['printer'] as String);
 
   final InsertionAdapter<ModelBartender> _modelBartenderInsertionAdapter;
 
@@ -144,7 +162,7 @@ class _$ModelBartenderDao extends ModelBartenderDao {
   }
 
   @override
-  Future<void> insertPerson(ModelBartender modelBartender) async {
+  Future<void> insertBartender(ModelBartender modelBartender) async {
     await _modelBartenderInsertionAdapter.insert(
         modelBartender, OnConflictStrategy.abort);
   }
@@ -182,7 +200,7 @@ class _$ModelPostLoginDao extends ModelPostLoginDao {
 
   @override
   Future<List<ModelPostLogin>> getAll() async {
-    return _queryAdapter.queryList('SELECT * FROM ModelBartender',
+    return _queryAdapter.queryList('SELECT * FROM ModelPostLogin',
         mapper: _modelPostLoginMapper);
   }
 
@@ -190,5 +208,91 @@ class _$ModelPostLoginDao extends ModelPostLoginDao {
   Future<void> insertPerson(ModelPostLogin modelPostLoginDao) async {
     await _modelPostLoginInsertionAdapter.insert(
         modelPostLoginDao, OnConflictStrategy.abort);
+  }
+}
+
+class _$BartenderEntryDao extends BartenderEntryDao {
+  _$BartenderEntryDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _bartenderEntryInsertionAdapter = InsertionAdapter(
+            database,
+            'BartenderEntry',
+            (BartenderEntry item) => <String, dynamic>{
+                  'id': item.id,
+                  'BartenderId': item.BartenderId,
+                  'BartenderPosition': item.BartenderPosition
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  static final _bartenderEntryMapper = (Map<String, dynamic> row) =>
+      BartenderEntry(row['id'] as int, row['BartenderId'] as String,
+          row['BartenderPosition'] as String);
+
+  final InsertionAdapter<BartenderEntry> _bartenderEntryInsertionAdapter;
+
+  @override
+  Future<List<BartenderEntry>> getAll() async {
+    return _queryAdapter.queryList('SELECT * FROM BartenderEntry',
+        mapper: _bartenderEntryMapper);
+  }
+
+  @override
+  Future<void> insertBartenderEntry(BartenderEntry bartenderEntry) async {
+    await _bartenderEntryInsertionAdapter.insert(
+        bartenderEntry, OnConflictStrategy.abort);
+  }
+}
+
+class _$ModelBartenderPositionDao extends ModelBartenderPositionDao {
+  _$ModelBartenderPositionDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _modelBartenderPositionInsertionAdapter = InsertionAdapter(
+            database,
+            'ModelBartenderPosition',
+            (ModelBartenderPosition item) => <String, dynamic>{
+                  'id': item.id,
+                  'item': item.item,
+                  'charge': item.charge,
+                  'count': item.count,
+                  'note1': item.note1,
+                  'note2': item.note2,
+                  'note3': item.note3
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  static final _modelBartenderPositionMapper = (Map<String, dynamic> row) =>
+      ModelBartenderPosition(
+          id: row['id'] as String,
+          item: row['item'] as String,
+          charge: row['charge'] as String,
+          count: row['count'] as int,
+          note1: row['note1'] as String,
+          note2: row['note2'] as String,
+          note3: row['note3'] as String);
+
+  final InsertionAdapter<ModelBartenderPosition>
+      _modelBartenderPositionInsertionAdapter;
+
+  @override
+  Future<List<ModelBartenderPosition>> getAll() async {
+    return _queryAdapter.queryList('SELECT * FROM ModelBartenderPosition',
+        mapper: _modelBartenderPositionMapper);
+  }
+
+  @override
+  Future<void> insertBartenderPosition(
+      ModelBartenderPosition modelBartenderPosition) async {
+    await _modelBartenderPositionInsertionAdapter.insert(
+        modelBartenderPosition, OnConflictStrategy.abort);
   }
 }

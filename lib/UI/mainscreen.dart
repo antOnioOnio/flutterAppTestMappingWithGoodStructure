@@ -17,46 +17,15 @@ class ExampleScreen extends StatefulWidget {
 class _ExampleScreenState extends State<ExampleScreen> {
   bool isLoading = false;
 
-  Map createFakeBartenderes() {
-    ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
-        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
-        item: "sample string 2",
-        charge: "sample string 3",
-        count: 4,
-        note1: "sample string 5",
-        note2: "sample string 6",
-        note3: "sample string 7");
-    ModelBartenderPosition bartenderPosition1 = new ModelBartenderPosition(
-        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae432",
-        item: "sample string 2",
-        charge: "sample string 3",
-        count: 4,
-        note1: "sample string 5",
-        note2: "sample string 6",
-        note3: "sample string 7");
-
-    List<ModelBartenderPosition> list = [bartenderPosition, bartenderPosition1];
-
-    ModelBartender bartender = new ModelBartender(
-      id: "94a15183-3a1b-4bb1-984e-eed8c1d71572",
-      bartenderNr: "97bbd28a-5bb4-4356-b6de-6f756e17d2e4",
-      notes: "sample string 3",
-      printDefinition: "sample string 4",
-      printer: "sample string 5",
-      positions: "",
-    );
 
 
-    return bartender.toJson();
-  }
 
   getBartenders() async {
     try {
       final dataRepository =
           Provider.of<DataRepository>(context, listen: false);
 
-      bool state = await dataRepository.postBartenders(createFakeBartenderes());
-
+      bool state = await dataRepository.postBartenders();
     } on SocketException catch (_) {
       showAlertDialog(
           context: context,
@@ -66,8 +35,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
       setState(() {
         isLoading = false;
       });
-    }
-    catch (_) {
+    } catch (_) {
       showAlertDialog(
           context: context,
           title: 'Uknown error',

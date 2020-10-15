@@ -28,7 +28,7 @@ class APIService {
     throw response;
   }
 
-  Future<ModelBartender> postBartender(Map map, String token) async {
+  Future<dynamic> postBartender(Map map, String token) async {
     print("body" + map.toString());
 
     Map<String, String> headers = {
@@ -46,7 +46,7 @@ class APIService {
       final data = json.decode(response.body);
 
       if (data != null) {
-        return ModelBartender.fromJson(data);
+        return data;
       }
     }
 

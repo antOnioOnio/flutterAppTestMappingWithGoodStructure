@@ -8,7 +8,7 @@ abstract class ModelBartenderDao{
   Future<List<ModelBartender>> getAll();
 
   @insert
-  Future<void> insertPerson(ModelBartender modelBartender);
+  Future<void> insertBartender(ModelBartender modelBartender);
 
 
 }

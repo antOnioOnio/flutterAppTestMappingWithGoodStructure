@@ -13,7 +13,6 @@ ModelBartender _$ModelBartenderFromJson(Map<String, dynamic> json) {
     notes: json['notes'] as String,
     printDefinition: json['printDefinition'] as String,
     printer: json['printer'] as String,
-    positions: json['positions'] as String,
   );
 }
 
@@ -24,5 +23,4 @@ Map<String, dynamic> _$ModelBartenderToJson(ModelBartender instance) =>
       'notes': instance.notes,
       'printDefinition': instance.printDefinition,
       'printer': instance.printer,
-      'positions': instance.positions,
     };
