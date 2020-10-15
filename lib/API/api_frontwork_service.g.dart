@@ -30,8 +30,9 @@ class _APIfrontWorkService implements APIfrontWorkService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    ModelPostLogin modelPostLogin = ModelPostLogin.fromJson(_result.data);
-    return modelPostLogin;
+
+    return ModelPostLogin.fromJson(_result.data);
+    ;
   }
 
   @override
@@ -54,7 +55,8 @@ class _APIfrontWorkService implements APIfrontWorkService {
             contentType: contentType,
             baseUrl: baseUrl),
         data: _data);
-    ModelBartender modelPostLogin = ModelBartender.fromJson(_result.data);
-    return modelPostLogin;
+
+    return ModelBartender.fromJson(_result.data);
+    ;
   }
 }

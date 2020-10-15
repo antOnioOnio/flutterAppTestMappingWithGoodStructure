@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:test_mapping/UI/show_alert_dialog.dart';
+import 'package:test_mapping/database/appDataBase.dart';
 import 'package:test_mapping/database/models/ModelBartender.dart';
 import 'package:test_mapping/database/models/ModelBartenderPosition.dart';
 import 'package:test_mapping/repositories/main_repository.dart';
@@ -17,9 +18,8 @@ class ExampleScreen extends StatefulWidget {
 class _ExampleScreenState extends State<ExampleScreen> {
   bool isLoading = false;
 
-/*
   Map createFakeBartenderes() {
-    ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
+    /*   ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
         id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
         item: "sample string 2",
         charge: "sample string 3",
@@ -44,23 +44,19 @@ class _ExampleScreenState extends State<ExampleScreen> {
       notes: "sample string 3",
       printDefinition: "sample string 4",
       printer: "sample string 5",
-      positions: "",
+      positions: bartenderPosition,
     );
 
+    return bartender.toJson();*/
+  }
 
-
-    return bartender.toJson();
-  }*/
-
-/*
   getBartenders() async {
-    try {
-      final dataRepository =
-          Provider.of<DataRepository>(context, listen: false);
+    /*try {*/
+    final dataRepository = Provider.of<DataRepository>(context, listen: false);
 
-      bool state = await dataRepository.postBartenders(createFakeBartenderes());
+    bool state = await dataRepository.postBartenders(createFakeBartenderes());
 
-    } on SocketException catch (_) {
+    /* } on SocketException catch (_) {
       showAlertDialog(
           context: context,
           title: 'Connection Error',
@@ -79,9 +75,8 @@ class _ExampleScreenState extends State<ExampleScreen> {
       setState(() {
         isLoading = false;
       });
-    }
+    }*/
   }
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +99,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
             child: GestureDetector(
               onTap: () {
                 print("cliqueado");
-               /* getBartenders();*/
+                /* getBartenders();*/
               },
               child: Text(
                 'GetBartender',

@@ -63,18 +63,20 @@ class DataRepository {
       }
     });
     return boolvalue;
+  }
 
-/*  ///
   Future<bool> postBartenders(Map map) async {
-    String token = await dataCacheService.getUserTokenSharedPreferences();
-
-    ModelBartender bartender = await apiService.postBartender(map, token);
+    String token = await _dataCacheService.getUserTokenSharedPreferences();
+    String data = map.toString();
+    ModelBartender bartender = await _apiService.postBartender(
+      data,'application/x-www-form-urlencoded', 'bearer ' + token
+    );
 
     if (bartender != null) {
       print("Bartender -->" + bartender.id);
     }
 
     return bartender != null ? true : false;
-  }*/
   }
+
 }

@@ -13,7 +13,7 @@ import 'UI/SignIn.dart';
 import 'repositories/main_repository.dart';
 
 void main() async {
-  /*Stetho.initialize();*/
+  Stetho.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   _setupLogging();
   await initializeDateFormatting();
