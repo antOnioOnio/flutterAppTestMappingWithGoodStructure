@@ -11,4 +11,4 @@ The first one will give us the token during the login page and the second one is
 
 I´ve tried to separate the different layers so in the future it will be as easier as possible to manage big apps.
 
-![Arquitectura](/imgs/arquitecture.png)
+![Arquitectura](/imgs/arquitecture.PNG)
