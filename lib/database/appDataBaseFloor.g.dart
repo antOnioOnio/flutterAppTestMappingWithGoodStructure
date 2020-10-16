@@ -92,7 +92,7 @@ class _$AppDataBase extends AppDataBase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ModelBartenderPosition` (`id` TEXT, `item` TEXT, `charge` TEXT, `count` INTEGER, `note1` TEXT, `note2` TEXT, `note3` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `BartenderEntry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `BartenderId` TEXT, `BartenderPosition` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `BartenderEntry` (`id` TEXT, `BartenderId` TEXT, `BartenderPositionId` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -119,7 +119,7 @@ class _$AppDataBase extends AppDataBase {
   }
 
   @override
-  ModelBartenderPositionDao get modelBartenderPosition {
+  ModelBartenderPositionDao get modelBartenderPositionDao {
     return _modelBartenderPositionInstance ??=
         _$ModelBartenderPositionDao(database, changeListener);
   }
@@ -159,6 +159,11 @@ class _$ModelBartenderDao extends ModelBartenderDao {
   Future<List<ModelBartender>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM ModelBartender',
         mapper: _modelBartenderMapper);
+  }
+
+  @override
+  Future<void> clearAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ModelBartender');
   }
 
   @override
@@ -205,7 +210,12 @@ class _$ModelPostLoginDao extends ModelPostLoginDao {
   }
 
   @override
-  Future<void> insertPerson(ModelPostLogin modelPostLoginDao) async {
+  Future<void> clearAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ModelPostLogin');
+  }
+
+  @override
+  Future<void> insertPostLogin(ModelPostLogin modelPostLoginDao) async {
     await _modelPostLoginInsertionAdapter.insert(
         modelPostLoginDao, OnConflictStrategy.abort);
   }
@@ -220,7 +230,7 @@ class _$BartenderEntryDao extends BartenderEntryDao {
             (BartenderEntry item) => <String, dynamic>{
                   'id': item.id,
                   'BartenderId': item.BartenderId,
-                  'BartenderPosition': item.BartenderPosition
+                  'BartenderPositionId': item.BartenderPositionId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -230,8 +240,8 @@ class _$BartenderEntryDao extends BartenderEntryDao {
   final QueryAdapter _queryAdapter;
 
   static final _bartenderEntryMapper = (Map<String, dynamic> row) =>
-      BartenderEntry(row['id'] as int, row['BartenderId'] as String,
-          row['BartenderPosition'] as String);
+      BartenderEntry(row['id'] as String, row['BartenderId'] as String,
+          row['BartenderPositionId'] as String);
 
   final InsertionAdapter<BartenderEntry> _bartenderEntryInsertionAdapter;
 
@@ -239,6 +249,11 @@ class _$BartenderEntryDao extends BartenderEntryDao {
   Future<List<BartenderEntry>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM BartenderEntry',
         mapper: _bartenderEntryMapper);
+  }
+
+  @override
+  Future<void> clearAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM BartenderEntry');
   }
 
   @override
@@ -287,6 +302,11 @@ class _$ModelBartenderPositionDao extends ModelBartenderPositionDao {
   Future<List<ModelBartenderPosition>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM ModelBartenderPosition',
         mapper: _modelBartenderPositionMapper);
+  }
+
+  @override
+  Future<void> clearAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ModelBartenderPosition');
   }
 
   @override

@@ -1,16 +1,13 @@
 import 'package:floor/floor.dart';
-import 'package:flutter/material.dart';
 
 @entity
 class BartenderEntry {
-  @PrimaryKey(autoGenerate: true)
-  final int id;
+  @PrimaryKey()
+  final String id;
 
   final String BartenderId;
 
-  final String BartenderPosition;
+  final String BartenderPositionId;
 
-  BartenderEntry(this.id,  this.BartenderId, this.BartenderPosition);
-
-
+  BartenderEntry(this.id, this.BartenderId, this.BartenderPositionId);
 }

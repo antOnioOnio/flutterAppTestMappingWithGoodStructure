@@ -17,16 +17,12 @@ class ExampleScreen extends StatefulWidget {
 class _ExampleScreenState extends State<ExampleScreen> {
   bool isLoading = false;
 
-
-
-
   getBartenders() async {
-    try {
-      final dataRepository =
-          Provider.of<DataRepository>(context, listen: false);
+    /*  try {*/
+    final dataRepository = Provider.of<DataRepository>(context, listen: false);
 
-      bool state = await dataRepository.postBartenders();
-    } on SocketException catch (_) {
+    bool state = await dataRepository.postBartenders();
+    /*  } on SocketException catch (_) {
       showAlertDialog(
           context: context,
           title: 'Connection Error',
@@ -44,7 +40,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
       setState(() {
         isLoading = false;
       });
-    }
+    }*/
   }
 
   @override

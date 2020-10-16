@@ -1,14 +1,12 @@
 import 'dart:convert';
+import 'package:test_mapping/database/models/Exports.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:test_mapping/API/api_service.dart';
 import 'package:test_mapping/API/datacacheService.dart';
 import 'package:test_mapping/database/appDataBaseFloor.dart';
 import 'package:test_mapping/database/manager/ModelPostLoginDao.dart';
-import 'package:test_mapping/database/models/BartenderEntry.dart';
-import 'package:test_mapping/database/models/ModelBartender.dart';
-import 'package:test_mapping/database/models/ModelBartenderPosition.dart';
-import 'package:test_mapping/database/models/ModelPostlogin.dart';
 
 class DataRepository {
   DataRepository(
@@ -35,7 +33,7 @@ class DataRepository {
       state = await dataCacheService
           .saveUserTokenSharedPreferences(postLogin.access_token);
 
-      postLoginDao.insertPerson(postLogin);
+      postLoginDao.insertPostLogin(postLogin);
 
       return state;
     }
@@ -45,25 +43,47 @@ class DataRepository {
 
   ///
   Future<bool> postBartenders() async {
+
+
+
     String token = await dataCacheService.getUserTokenSharedPreferences();
 
     var map = new Map();
+    var uuid = Uuid();
 
     map = await apiService.postBartender(createFakeBartenderes(), token);
 
-/*
     if (map['id'] != null) {
-      dataBase.bartenderEntryDao.insertBartenderEntry(BartenderEntry(, map['id'], "algo"));
-    }
-*/
+      print("Map Response---> " + map.toString());
 
-    /* return bartender != null ? true : false;*/
-    return true;
+      var posObjsJson = map['positions'] as List;
+      List<ModelBartenderPosition> _positions = posObjsJson
+          .map((tagJson) => ModelBartenderPosition.fromJson(tagJson))
+          .toList();
+
+      for (var pos in _positions) {
+        // inser our Bartender position into its table
+        dataBase.modelBartenderPositionDao.insertBartenderPosition(pos);
+
+        // insert one entry for each position in our bartenderEntryPosition
+        BartenderEntry bartenderEntry =
+            new BartenderEntry(uuid.v4(), map["id"], pos.id);
+        dataBase.bartenderEntryDao.insertBartenderEntry(bartenderEntry);
+      }
+      // insert our bartender into its table
+      ModelBartender modelBartender = new ModelBartender.fromJson(map);
+      await dataBase.modelBartenderDao.insertBartender(modelBartender);
+
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Map createFakeBartenderes() {
+    var uuid = Uuid();
     ModelBartenderPosition bartenderPosition = new ModelBartenderPosition(
-        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae431",
+        id: uuid.v4(),
         item: "sample string 2",
         charge: "sample string 3",
         count: 4,
@@ -72,7 +92,7 @@ class DataRepository {
         note3: "sample string 7");
 
     ModelBartenderPosition bartenderPosition1 = new ModelBartenderPosition(
-        id: "6f2c3a99-2340-4e18-95ee-a4d07c0ae432",
+        id: uuid.v4(),
         item: "sample string 2",
         charge: "sample string 3",
         count: 4,

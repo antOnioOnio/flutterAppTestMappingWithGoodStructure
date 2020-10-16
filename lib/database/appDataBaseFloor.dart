@@ -17,5 +17,5 @@ abstract class AppDataBase extends FloorDatabase {
   ModelBartenderDao get modelBartenderDao;
   ModelPostLoginDao get modelPostLoginDao;
   BartenderEntryDao get bartenderEntryDao;
-  ModelBartenderPositionDao get modelBartenderPosition;
+  ModelBartenderPositionDao get modelBartenderPositionDao;
 }

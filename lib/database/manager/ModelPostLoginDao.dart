@@ -9,7 +9,8 @@ abstract class ModelPostLoginDao{
   Future<List<ModelPostLogin>> getAll();
 
   @insert
-  Future<void> insertPerson(ModelPostLogin modelPostLoginDao);
+  Future<void> insertPostLogin(ModelPostLogin modelPostLoginDao);
 
-
+  @Query('DELETE FROM ModelPostLogin')
+  Future<void> clearAll();
 }

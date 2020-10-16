@@ -10,5 +10,6 @@ abstract class ModelBartenderDao{
   @insert
   Future<void> insertBartender(ModelBartender modelBartender);
 
-
+  @Query('DELETE FROM ModelBartender')
+  Future<void> clearAll();
 }

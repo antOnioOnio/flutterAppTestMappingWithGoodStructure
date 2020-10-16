@@ -20,7 +20,7 @@ Map<String, dynamic> _$ModelPostLoginToJson(ModelPostLogin instance) =>
     <String, dynamic>{
       'grant_type': instance.grant_type,
       'username': instance.username,
-      'password': instance.password/*,
+      'password': instance.password,/*,
       'access_token': instance.access_token,
       'expires': instance.expires,*/
     };
